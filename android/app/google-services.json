@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "80991382913",
+    "project_id": "phox-39c06",
+    "storage_bucket": "phox-39c06.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:80991382913:android:1c59ed7784c334ebec0c80",
+        "android_client_info": {
+          "package_name": "com.water.phox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "80991382913-dr15qtqq5ikoeuaaeu6g80kg4iv80l3k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.water.phox",
+            "certificate_hash": "20773a8954bdb0c810371a0ef0b7556cbce7f28c"
+          }
+        },
+        {
+          "client_id": "80991382913-0u7gq9rhbckbd00vppq40u446ge2sdgg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBnzn-DHcTrPnI_AeGF97z2qaZwzbS_AIA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "80991382913-0u7gq9rhbckbd00vppq40u446ge2sdgg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
