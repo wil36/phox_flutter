@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phox_mizz_up/helpers.dart';
 
 class SignupLoginScreen extends StatefulWidget {
@@ -15,14 +16,16 @@ class _SignupLoginScreenState extends State<SignupLoginScreen> {
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Stack(
         children: [
-          Positioned(
-            bottom: 0,
-            child: Image(
-              alignment: Alignment.bottomLeft,
-              width: MediaQuery.of(context).size.width,
-              image: const AssetImage('assets/image_signup_login.png'),
-            ),
-          ),
+          ScreenUtil().screenWidth > 500
+              ? Container()
+              : Positioned(
+                  bottom: 0,
+                  child: Image(
+                    alignment: Alignment.bottomCenter,
+                    width: MediaQuery.of(context).size.width,
+                    image: const AssetImage('assets/image_signup_login.png'),
+                  ),
+                ),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -31,8 +34,8 @@ class _SignupLoginScreenState extends State<SignupLoginScreen> {
                 const Image(
                   image: AssetImage('assets/logo.png'),
                 ),
-                const SizedBox(
-                  height: 40,
+                SizedBox(
+                  height: 40.h,
                 ),
                 const Flexible(
                   child: Text(
@@ -44,11 +47,13 @@ class _SignupLoginScreenState extends State<SignupLoginScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 20,
+                SizedBox(
+                  height: 20.h,
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.5,
+                  width: ScreenUtil().screenWidth > 500
+                      ? MediaQuery.of(context).size.width / 2
+                      : MediaQuery.of(context).size.width / 1.5,
                   child: elevatedButtonComponent(
                     context: context,
                     texte: "SIGNUP",
@@ -59,11 +64,13 @@ class _SignupLoginScreenState extends State<SignupLoginScreen> {
                     },
                   ),
                 ),
-                const SizedBox(
-                  height: 10,
+                SizedBox(
+                  height: 10.h,
                 ),
                 SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.5,
+                  width: ScreenUtil().screenWidth > 500
+                      ? MediaQuery.of(context).size.width / 2
+                      : MediaQuery.of(context).size.width / 1.5,
                   child: elevatedButtonComponent(
                     context: context,
                     texte: "LOGIN",
@@ -79,7 +86,7 @@ class _SignupLoginScreenState extends State<SignupLoginScreen> {
           )
         ],
       ),
-      // bottomNavigationBar: const SizedBox(
+      // bottomNavigationBar:SizedBox(
       //   width: double.infinity,
       //   child: Image(
       //     image: AssetImage('assets/image_signup_login.png'),

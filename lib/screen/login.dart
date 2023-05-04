@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:phox_mizz_up/helpers.dart';
 import 'package:phox_mizz_up/services/auth_service.dart';
@@ -24,9 +25,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: const Image(
-          image: AssetImage('assets/logo.png'),
-          width: 120,
+        title: Image(
+          image: const AssetImage('assets/logo.png'),
+          width: 120.w,
         ),
         elevation: 0,
         centerTitle: true,
@@ -43,11 +44,13 @@ class _LoginScreenState extends State<LoginScreen> {
                     'LOG IN',
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 20.h,
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width / 1.2,
+                    width: ScreenUtil().screenWidth > 500
+                        ? MediaQuery.of(context).size.width / 2
+                        : MediaQuery.of(context).size.width / 1.2,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15, vertical: 10),
                     decoration: BoxDecoration(
@@ -62,8 +65,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           'Email',
                           style: TextStyle(color: Colors.white),
                         ),
-                        const SizedBox(
-                          height: 10,
+                        SizedBox(
+                          height: 10.h,
                         ),
                         TextFormField(
                           autofocus: false,
@@ -85,15 +88,15 @@ class _LoginScreenState extends State<LoginScreen> {
                                 : "Please enter a valid email";
                           },
                         ),
-                        const SizedBox(
-                          height: 20,
+                        SizedBox(
+                          height: 20.h,
                         ),
                         const Text(
                           'Password',
                           style: TextStyle(color: Colors.white),
                         ),
-                        const SizedBox(
-                          height: 10,
+                        SizedBox(
+                          height: 10.h,
                         ),
                         TextFormField(
                           autofocus: false,
@@ -115,8 +118,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             }
                           },
                         ),
-                        const SizedBox(
-                          height: 30,
+                        SizedBox(
+                          height: 30.h,
                         ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 1.2,
@@ -140,15 +143,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 20.h,
                   ),
                   TextButton(
-                    onPressed: () {
-                      setState(() {
-                        _isLoading = !_isLoading;
-                      });
-                    },
+                    onPressed: () {},
                     child: Text(
                       "FORGOT PASSWORD ?",
                       style: TextStyle(

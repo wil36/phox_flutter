@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:phox_mizz_up/helpers.dart';
 import 'package:phox_mizz_up/services/database_service.dart';
 
@@ -26,190 +27,197 @@ class _AddFiltersScreenState extends State<AddFiltersScreen> {
         iconTheme: IconThemeData(
           color: Theme.of(context).colorScheme.secondary, // <-- SEE HERE
         ),
-        title: const Image(
-          image: AssetImage('assets/logo.png'),
-          width: 120,
+        title: Image(
+          image: const AssetImage('assets/logo.png'),
+          width: 120.w,
         ),
         elevation: 0,
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Form(
-            key: formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(
-                  height: 40,
-                ),
-                Text(
-                  'Filter Name',
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontSize: 17),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  controller: nameController,
-                  autofocus: false,
-                  style: const TextStyle(fontSize: 15.0, color: Colors.black87),
-                  decoration: inputDecorationComponent(
-                      hintText: 'Enter filter name ...'),
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter filter name';
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  'Date Filter Changed',
-                  style: TextStyle(
-                      color: Theme.of(context).colorScheme.secondary,
-                      fontSize: 17),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                TextFormField(
-                  autofocus: false,
-                  controller: dateController,
-                  readOnly: true,
-                  style: const TextStyle(fontSize: 15.0, color: Colors.black87),
-                  decoration: inputDecorationComponent(
-                    hintText: 'Thrusday, May 4th, 2019',
+        child: Center(
+          child: SizedBox(
+            width: ScreenUtil().screenWidth > 500
+                ? MediaQuery.of(context).size.width / 2
+                : MediaQuery.of(context).size.width / 1.2,
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    height: 40.h,
                   ),
-                  onTap: () {
-                    _selectDate();
-                  },
-                  validator: (value) {
-                    if (value!.isEmpty) {
-                      return 'Please enter the date filter changed';
-                    } else {
-                      return null;
-                    }
-                  },
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Radio(
-                      value: 'V2',
-                      fillColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        return Colors.white;
-                      }),
-                      groupValue: typeValue,
-                      onChanged: (String? value) {
-                        setState(() {
-                          typeValue = value!;
-                        });
-                      },
+                  Text(
+                    'Filter Name',
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontSize: 17),
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  TextFormField(
+                    controller: nameController,
+                    autofocus: false,
+                    style:
+                        const TextStyle(fontSize: 15.0, color: Colors.black87),
+                    decoration: inputDecorationComponent(
+                        hintText: 'Enter filter name ...'),
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter filter name';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Text(
+                    'Date Filter Changed',
+                    style: TextStyle(
+                        color: Theme.of(context).colorScheme.secondary,
+                        fontSize: 17),
+                  ),
+                  SizedBox(
+                    height: 10.h,
+                  ),
+                  TextFormField(
+                    autofocus: false,
+                    controller: dateController,
+                    readOnly: true,
+                    style:
+                        const TextStyle(fontSize: 15.0, color: Colors.black87),
+                    decoration: inputDecorationComponent(
+                      hintText:
+                          "${DateTime.now().year}-${DateTime.now().month.toString().padLeft(2, '0')}-${DateTime.now().day.toString().padLeft(2, '0')}",
                     ),
-                    Text(
-                      'V2',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontSize: 17),
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Radio(
-                      value: 'The Wave',
-                      fillColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        return Colors.white;
-                      }),
-                      groupValue: typeValue,
-                      onChanged: (String? value) {
-                        setState(() {
-                          typeValue = value!;
-                        });
-                      },
-                    ),
-                    Text(
-                      'The Wave',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontSize: 17),
-                    )
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Radio(
-                      value: 'Compatible',
-                      fillColor: MaterialStateProperty.resolveWith<Color>(
-                          (Set<MaterialState> states) {
-                        return Colors.white;
-                      }),
-                      groupValue: typeValue,
-                      onChanged: (String? value) {
-                        setState(() {
-                          typeValue = value!;
-                        });
-                      },
-                    ),
-                    Text(
-                      'Compatible',
-                      style: TextStyle(
-                          color: Theme.of(context).colorScheme.secondary,
-                          fontSize: 17),
-                    )
-                  ],
-                ),
-                _showRadioError
-                    ? const Padding(
-                        padding: EdgeInsets.only(left: 12),
-                        child: Text(
-                          "Please select at least one of these options",
-                          style:
-                              TextStyle(fontSize: 13, color: Colors.redAccent),
-                        ),
-                      )
-                    : Container(),
-                const SizedBox(
-                  height: 40,
-                ),
-                SizedBox(
-                  width: MediaQuery.of(context).size.width / 1.1,
-                  child: _isLoading
-                      ? Center(
-                          child: CircularProgressIndicator(
+                    onTap: () {
+                      _selectDate();
+                    },
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter the date filter changed';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                  SizedBox(
+                    height: 20.h,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Radio(
+                        value: 'Glass V2',
+                        fillColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          return Colors.white;
+                        }),
+                        groupValue: typeValue,
+                        onChanged: (String? value) {
+                          setState(() {
+                            typeValue = value!;
+                          });
+                        },
+                      ),
+                      Text(
+                        'Glass V2',
+                        style: TextStyle(
                             color: Theme.of(context).colorScheme.secondary,
+                            fontSize: 17),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Radio(
+                        value: 'The Wave',
+                        fillColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          return Colors.white;
+                        }),
+                        groupValue: typeValue,
+                        onChanged: (String? value) {
+                          setState(() {
+                            typeValue = value!;
+                          });
+                        },
+                      ),
+                      Text(
+                        'The Wave',
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary,
+                            fontSize: 17),
+                      )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Radio(
+                        value: 'Compatible',
+                        fillColor: MaterialStateProperty.resolveWith<Color>(
+                            (Set<MaterialState> states) {
+                          return Colors.white;
+                        }),
+                        groupValue: typeValue,
+                        onChanged: (String? value) {
+                          setState(() {
+                            typeValue = value!;
+                          });
+                        },
+                      ),
+                      Text(
+                        'Compatible',
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.secondary,
+                            fontSize: 17),
+                      )
+                    ],
+                  ),
+                  _showRadioError
+                      ? const Padding(
+                          padding: EdgeInsets.only(left: 12),
+                          child: Text(
+                            "Please select at least one of these options",
+                            style: TextStyle(
+                                fontSize: 13, color: Colors.redAccent),
                           ),
                         )
-                      : elevatedButtonComponent(
-                          context: context,
-                          texte: "ADD FILTER",
-                          backgroundColor:
-                              Theme.of(context).colorScheme.secondary,
-                          textColor: Colors.white,
-                          function: () {
-                            saveFilter();
-                          },
-                        ),
-                )
-              ],
+                      : Container(),
+                  SizedBox(
+                    height: 40.h,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 1.1,
+                    child: _isLoading
+                        ? Center(
+                            child: CircularProgressIndicator(
+                              color: Theme.of(context).colorScheme.secondary,
+                            ),
+                          )
+                        : elevatedButtonComponent(
+                            context: context,
+                            texte: "ADD FILTER",
+                            backgroundColor:
+                                Theme.of(context).colorScheme.secondary,
+                            textColor: Colors.white,
+                            function: () {
+                              saveFilter();
+                            },
+                          ),
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -238,10 +246,8 @@ class _AddFiltersScreenState extends State<AddFiltersScreen> {
       },
     );
     if (picked != null) {
-      dateController.text = picked.toString();
-      setState(() {
-        dateTime = picked.toString();
-      });
+      dateController.text =
+          "${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
     }
   }
 

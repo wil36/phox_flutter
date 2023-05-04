@@ -55,4 +55,8 @@ class DatabaseService {
       "dateExpires": dateExpire,
     });
   }
+
+  Future deleteFilter(String docId) async {
+    return await filterCollection.doc(docId).delete();
+  }
 }

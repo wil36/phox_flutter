@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 ElevatedButton elevatedButtonComponent(
     {required BuildContext context,
@@ -11,6 +12,8 @@ ElevatedButton elevatedButtonComponent(
     style: ElevatedButton.styleFrom(
       backgroundColor: backgroundColor,
       foregroundColor: textColor,
+      minimumSize:
+          Size(double.infinity, ScreenUtil().screenWidth > 500 ? 50 : 40),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
           side: BorderSide(color: backgroundColor)),
@@ -55,4 +58,4 @@ void showSnackBar(context, color, message) {
   ));
 }
 
-const int timeDurationOfFilter = 100;
+const int timeDurationOfFilter = 45;

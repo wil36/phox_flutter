@@ -3,9 +3,11 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import "package:flutter_feather_icons/flutter_feather_icons.dart";
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:phox_mizz_up/helpers.dart';
 import 'package:phox_mizz_up/services/database_service.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MyFiltersScreen extends StatefulWidget {
   const MyFiltersScreen({super.key});
@@ -17,7 +19,6 @@ class MyFiltersScreen extends StatefulWidget {
 class _MyFiltersScreenState extends State<MyFiltersScreen> {
   var box = Hive.box('Phox');
   Stream<QuerySnapshot>? filtersList;
-  bool _noObject = false;
 
   @override
   void initState() {
@@ -54,8 +55,8 @@ class _MyFiltersScreenState extends State<MyFiltersScreen> {
                     )),
               ],
             ),
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: 30.h,
             ),
             ListTile(
               title: const Text(
@@ -67,8 +68,8 @@ class _MyFiltersScreenState extends State<MyFiltersScreen> {
                 Navigator.pushReplacementNamed(context, '/myFilters');
               },
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: 10.h,
             ),
             ListTile(
               title: const Text(
@@ -81,8 +82,8 @@ class _MyFiltersScreenState extends State<MyFiltersScreen> {
                 // ...
               },
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: 10.h,
             ),
             ListTile(
               title: const Text(
@@ -95,8 +96,8 @@ class _MyFiltersScreenState extends State<MyFiltersScreen> {
                 // ...
               },
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: 10.h,
             ),
             ListTile(
               title: const Text(
@@ -108,8 +109,8 @@ class _MyFiltersScreenState extends State<MyFiltersScreen> {
                 Navigator.pushReplacementNamed(context, '/contact');
               },
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: 10.h,
             ),
             ListTile(
               title: const Text(
@@ -127,14 +128,16 @@ class _MyFiltersScreenState extends State<MyFiltersScreen> {
                 Navigator.pushReplacementNamed(context, '/signupLoginQuestion');
               },
             ),
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: 30.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    _launchUrl("https://www.facebook.com/phoxwater");
+                  },
                   child: CircleAvatar(
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                     child: const Icon(
@@ -144,11 +147,13 @@ class _MyFiltersScreenState extends State<MyFiltersScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 8,
+                SizedBox(
+                  width: 2.w,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    _launchUrl("https://www.instagram.com/phoxwater");
+                  },
                   child: CircleAvatar(
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                     child: const Icon(
@@ -158,11 +163,13 @@ class _MyFiltersScreenState extends State<MyFiltersScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 8,
+                SizedBox(
+                  width: 2.w,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    _launchUrl("https://www.tiktok.com/@phoxwater");
+                  },
                   child: CircleAvatar(
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                     child: const Icon(
@@ -172,11 +179,29 @@ class _MyFiltersScreenState extends State<MyFiltersScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 8,
+                SizedBox(
+                  width: 2.w,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    _launchUrl("https://twitter.com/PhoxWater");
+                  },
+                  child: CircleAvatar(
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    child: const Icon(
+                      FeatherIcons.twitter,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 2.w,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    _launchUrl("https://www.youtube.com/phoxwater");
+                  },
                   child: CircleAvatar(
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                     child: const Icon(
@@ -188,8 +213,8 @@ class _MyFiltersScreenState extends State<MyFiltersScreen> {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: 20.h,
             ),
             const Center(
               child: Image(
@@ -205,9 +230,9 @@ class _MyFiltersScreenState extends State<MyFiltersScreen> {
         iconTheme: IconThemeData(
           color: Theme.of(context).colorScheme.secondary, // <-- SEE HERE
         ),
-        title: const Image(
-          image: AssetImage('assets/logo.png'),
-          width: 120,
+        title: Image(
+          image: const AssetImage('assets/logo.png'),
+          width: 120.w,
         ),
         elevation: 0,
         centerTitle: true,
@@ -219,28 +244,30 @@ class _MyFiltersScreenState extends State<MyFiltersScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: 30.h,
             ),
             const Text(
               "MY FILTERS",
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: 20.h,
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Divider(
                 color: Colors.white,
-                height: 3,
+                height: 3.h,
               ),
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: 20.h,
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width / 1.09,
+              width: ScreenUtil().screenWidth > 500
+                  ? MediaQuery.of(context).size.width / 2
+                  : MediaQuery.of(context).size.width / 1.09,
               child: StreamBuilder(
                 stream: filtersList,
                 builder: (context, AsyncSnapshot snapshot) {
@@ -279,8 +306,8 @@ class _MyFiltersScreenState extends State<MyFiltersScreen> {
                                               fontSize: 17,
                                             ),
                                           ),
-                                          const SizedBox(
-                                            height: 5,
+                                          SizedBox(
+                                            height: 5.h,
                                           ),
                                           LinearProgressIndicator(
                                             backgroundColor: Colors.white,
@@ -297,13 +324,13 @@ class _MyFiltersScreenState extends State<MyFiltersScreen> {
                                                 Theme.of(context)
                                                     .colorScheme
                                                     .secondary),
-                                            minHeight: 7,
+                                            minHeight: 7.h,
                                           ),
                                         ],
                                       ),
                                       leading: Container(
-                                        height: 30,
-                                        width: 30,
+                                        height: 30.h,
+                                        width: 30.w,
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(5),
@@ -320,14 +347,14 @@ class _MyFiltersScreenState extends State<MyFiltersScreen> {
                                         )),
                                       ),
                                     ),
-                                    const SizedBox(
-                                      height: 5,
+                                    SizedBox(
+                                      height: 5.h,
                                     ),
                                   ],
                                 ),
                               ),
-                          separatorBuilder: (context, index) => const Divider(
-                                height: 1,
+                          separatorBuilder: (context, index) => Divider(
+                                height: 1.h,
                                 color: Colors.white,
                               ),
                           itemCount: snapshot.data.docs.length)
@@ -335,8 +362,8 @@ class _MyFiltersScreenState extends State<MyFiltersScreen> {
                 },
               ),
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: 20.h,
             ),
             GestureDetector(
               onTap: () {
@@ -350,32 +377,31 @@ class _MyFiltersScreenState extends State<MyFiltersScreen> {
                 dashPattern: const [8, 7],
                 child: SizedBox(
                   height: 130,
-                  width: MediaQuery.of(context).size.width / 1.2,
+                  width: ScreenUtil().screenWidth > 500
+                      ? MediaQuery.of(context).size.width / 2
+                      : MediaQuery.of(context).size.width / 1.2,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(
+                        height: 10.h,
                       ),
                       Icon(
                         Icons.add_circle_outline,
                         color: Theme.of(context).colorScheme.secondary,
                         size: 40,
                       ),
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(
+                        height: 10.h,
                       ),
-                      Text(
-                        _noObject
-                            ? "ADD NEW FILTER"
-                            : "You have no filter timers currently.\nClick to add your first one!",
+                      const Text(
+                        "ADD NEW FILTER",
                         textAlign: TextAlign.center,
-                        style:
-                            const TextStyle(color: Colors.white, fontSize: 15),
+                        style: TextStyle(color: Colors.white, fontSize: 15),
                       ),
-                      const SizedBox(
-                        height: 10,
+                      SizedBox(
+                        height: 10.h,
                       ),
                     ],
                   ),
@@ -386,5 +412,12 @@ class _MyFiltersScreenState extends State<MyFiltersScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _launchUrl(String urlString) async {
+    final Uri url = Uri.parse(urlString);
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $urlString');
+    }
   }
 }

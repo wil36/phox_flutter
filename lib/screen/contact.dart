@@ -1,6 +1,8 @@
 import "package:flutter_feather_icons/flutter_feather_icons.dart";
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactScreen extends StatefulWidget {
   const ContactScreen({super.key});
@@ -33,8 +35,8 @@ class _ContactScreenState extends State<ContactScreen> {
                     )),
               ],
             ),
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: 30.h,
             ),
             ListTile(
               title: const Text(
@@ -46,8 +48,8 @@ class _ContactScreenState extends State<ContactScreen> {
                 Navigator.pushReplacementNamed(context, '/myFilters');
               },
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: 10.h,
             ),
             ListTile(
               title: const Text(
@@ -60,8 +62,8 @@ class _ContactScreenState extends State<ContactScreen> {
                 // ...
               },
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: 10.h,
             ),
             ListTile(
               title: const Text(
@@ -74,8 +76,8 @@ class _ContactScreenState extends State<ContactScreen> {
                 // ...
               },
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: 10.h,
             ),
             ListTile(
               title: const Text(
@@ -87,8 +89,8 @@ class _ContactScreenState extends State<ContactScreen> {
                 Navigator.pushReplacementNamed(context, '/contact');
               },
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: 10.h,
             ),
             ListTile(
               title: const Text(
@@ -106,14 +108,16 @@ class _ContactScreenState extends State<ContactScreen> {
                 Navigator.pushReplacementNamed(context, '/signupLoginQuestion');
               },
             ),
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: 30.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    _launchUrl("https://www.facebook.com/phoxwater");
+                  },
                   child: CircleAvatar(
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                     child: const Icon(
@@ -123,11 +127,13 @@ class _ContactScreenState extends State<ContactScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 8,
+                SizedBox(
+                  width: 2.w,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    _launchUrl("https://www.instagram.com/phoxwater");
+                  },
                   child: CircleAvatar(
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                     child: const Icon(
@@ -137,11 +143,13 @@ class _ContactScreenState extends State<ContactScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 8,
+                SizedBox(
+                  width: 2.w,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    _launchUrl("https://www.tiktok.com/@phoxwater");
+                  },
                   child: CircleAvatar(
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                     child: const Icon(
@@ -151,11 +159,29 @@ class _ContactScreenState extends State<ContactScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 8,
+                SizedBox(
+                  width: 2.w,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    _launchUrl("https://twitter.com/PhoxWater");
+                  },
+                  child: CircleAvatar(
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    child: const Icon(
+                      FeatherIcons.twitter,
+                      color: Colors.white,
+                      size: 30,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 2.w,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    _launchUrl("https://www.youtube.com/phoxwater");
+                  },
                   child: CircleAvatar(
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                     child: const Icon(
@@ -167,8 +193,8 @@ class _ContactScreenState extends State<ContactScreen> {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: 20.h,
             ),
             const Center(
               child: Image(
@@ -184,9 +210,9 @@ class _ContactScreenState extends State<ContactScreen> {
         iconTheme: IconThemeData(
           color: Theme.of(context).colorScheme.secondary, // <-- SEE HERE
         ),
-        title: const Image(
-          image: AssetImage('assets/logo.png'),
-          width: 120,
+        title: Image(
+          image: const AssetImage('assets/logo.png'),
+          width: 120.w,
         ),
         elevation: 0,
         centerTitle: true,
@@ -198,33 +224,33 @@ class _ContactScreenState extends State<ContactScreen> {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: 30.h,
             ),
             const Text(
               "CONTACT US",
               style: TextStyle(color: Colors.white, fontSize: 20),
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: 20.h,
             ),
-            const Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Divider(
                 color: Colors.white,
-                height: 3,
+                height: 3.h,
               ),
             ),
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: 30.h,
             ),
             const Icon(
               Icons.mail,
               color: Colors.white,
               size: 40,
             ),
-            const SizedBox(
-              height: 15,
+            SizedBox(
+              height: 15.h,
             ),
             const Text(
               "Email Us at",
@@ -241,11 +267,13 @@ class _ContactScreenState extends State<ContactScreen> {
                 fontSize: 18,
               ),
             ),
-            const SizedBox(
-              height: 30,
+            SizedBox(
+              height: 30.h,
             ),
             SizedBox(
-              width: MediaQuery.of(context).size.width / 2,
+              width: ScreenUtil().screenWidth > 500
+                  ? MediaQuery.of(context).size.width / 4
+                  : MediaQuery.of(context).size.width / 2.5,
               child: ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
@@ -265,8 +293,8 @@ class _ContactScreenState extends State<ContactScreen> {
                       FeatherIcons.messageSquare,
                       color: Theme.of(context).colorScheme.primary,
                     ),
-                    const SizedBox(
-                      width: 5,
+                    SizedBox(
+                      width: 5.w,
                     ),
                     const Text(
                       "MESSAGE US",
@@ -276,8 +304,8 @@ class _ContactScreenState extends State<ContactScreen> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 80,
+            SizedBox(
+              height: 80.h,
             ),
             const Text(
               "Follow Us",
@@ -286,14 +314,16 @@ class _ContactScreenState extends State<ContactScreen> {
                 fontSize: 18,
               ),
             ),
-            const SizedBox(
-              height: 20,
+            SizedBox(
+              height: 20.h,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    _launchUrl("https://www.facebook.com/phoxwater");
+                  },
                   child: CircleAvatar(
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                     child: Icon(
@@ -303,11 +333,13 @@ class _ContactScreenState extends State<ContactScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 8,
+                SizedBox(
+                  width: 2.w,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    _launchUrl("https://www.instagram.com/phoxwater");
+                  },
                   child: CircleAvatar(
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                     child: Icon(
@@ -317,11 +349,13 @@ class _ContactScreenState extends State<ContactScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 8,
+                SizedBox(
+                  width: 2.w,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    _launchUrl("https://www.tiktok.com/@phoxwater");
+                  },
                   child: CircleAvatar(
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                     child: Icon(
@@ -331,11 +365,29 @@ class _ContactScreenState extends State<ContactScreen> {
                     ),
                   ),
                 ),
-                const SizedBox(
-                  width: 8,
+                SizedBox(
+                  width: 2.w,
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    _launchUrl("https://twitter.com/PhoxWater");
+                  },
+                  child: CircleAvatar(
+                    backgroundColor: Theme.of(context).colorScheme.secondary,
+                    child: Icon(
+                      FeatherIcons.twitter,
+                      color: Theme.of(context).colorScheme.primary,
+                      size: 30,
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  width: 2.w,
+                ),
+                GestureDetector(
+                  onTap: () {
+                    _launchUrl("https://www.youtube.com/phoxwater");
+                  },
                   child: CircleAvatar(
                     backgroundColor: Theme.of(context).colorScheme.secondary,
                     child: Icon(
@@ -347,8 +399,8 @@ class _ContactScreenState extends State<ContactScreen> {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 10,
+            SizedBox(
+              height: 10.h,
             ),
             const Text(
               "@phoxwater",
@@ -361,5 +413,12 @@ class _ContactScreenState extends State<ContactScreen> {
         ),
       ),
     );
+  }
+
+  Future<void> _launchUrl(String urlString) async {
+    final Uri url = Uri.parse(urlString);
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $urlString');
+    }
   }
 }

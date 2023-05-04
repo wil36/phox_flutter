@@ -1,6 +1,7 @@
 import 'package:circular_chart_flutter/circular_chart_flutter.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:phox_mizz_up/helpers.dart';
 import 'package:phox_mizz_up/services/database_service.dart';
@@ -15,6 +16,9 @@ class DetailsFilterSccreen extends StatefulWidget {
 class _DetailsFilterSccreenState extends State<DetailsFilterSccreen> {
   final GlobalKey<AnimatedCircularChartState> _chartKey =
       GlobalKey<AnimatedCircularChartState>();
+  String dateTime = DateTime.now().toString();
+  TextEditingController dateController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   var box = Hive.box('Phox');
   Map<String, dynamic>? data = {};
@@ -25,6 +29,8 @@ class _DetailsFilterSccreenState extends State<DetailsFilterSccreen> {
     setState(() {
       _isLoading = true;
     });
+    dateController.text =
+        "${DateTime.now().year}-${DateTime.now().month.toString().padLeft(2, '0')}-${DateTime.now().day.toString().padLeft(2, '0')}";
     DatabaseService(uid: FirebaseAuth.instance.currentUser!.uid)
         .getdetailFilterOfUser(
             box.get("KEYDOCCURRENTFILTEROPEN", defaultValue: ""))
@@ -48,9 +54,9 @@ class _DetailsFilterSccreenState extends State<DetailsFilterSccreen> {
         iconTheme: IconThemeData(
           color: Theme.of(context).colorScheme.secondary, // <-- SEE HERE
         ),
-        title: const Image(
-          image: AssetImage('assets/logo.png'),
-          width: 120,
+        title: Image(
+          image: const AssetImage('assets/logo.png'),
+          width: 120.w,
         ),
         elevation: 0,
         centerTitle: true,
@@ -64,8 +70,8 @@ class _DetailsFilterSccreenState extends State<DetailsFilterSccreen> {
           : SingleChildScrollView(
               child: Column(
                 children: [
-                  const SizedBox(
-                    height: 40,
+                  SizedBox(
+                    height: 40.h,
                   ),
                   Center(
                     child: Text(
@@ -73,13 +79,19 @@ class _DetailsFilterSccreenState extends State<DetailsFilterSccreen> {
                       style: const TextStyle(color: Colors.white, fontSize: 20),
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 20.h,
                   ),
                   AnimatedCircularChart(
                     key: _chartKey,
-                    size: Size(MediaQuery.of(context).size.width / 1.2,
-                        MediaQuery.of(context).size.width / 1.2),
+                    size: Size(
+                      ScreenUtil().screenWidth > 500
+                          ? MediaQuery.of(context).size.width / 4
+                          : MediaQuery.of(context).size.width / 1.2,
+                      ScreenUtil().screenWidth > 500
+                          ? MediaQuery.of(context).size.width / 4
+                          : MediaQuery.of(context).size.width / 1.2,
+                    ),
                     initialChartData: <CircularStackEntry>[
                       CircularStackEntry(
                         <CircularSegmentEntry>[
@@ -126,12 +138,12 @@ class _DetailsFilterSccreenState extends State<DetailsFilterSccreen> {
                     labelStyle: TextStyle(
                       color: Theme.of(context).colorScheme.secondary,
                       fontWeight: FontWeight.bold,
-                      fontSize: 24.0,
+                      fontSize: 24.0.sp,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 20.h,
                   ),
                   SizedBox(
                     width: MediaQuery.of(context).size.width / 2.4,
@@ -144,6 +156,8 @@ class _DetailsFilterSccreenState extends State<DetailsFilterSccreen> {
                     ),
                   ),
                   SizedBox(
+                      height: ScreenUtil().screenWidth > 500 ? 20.h : 10.h),
+                  SizedBox(
                     width: MediaQuery.of(context).size.width / 2.2,
                     child: TextButton(
                       onPressed: () {
@@ -154,7 +168,7 @@ class _DetailsFilterSccreenState extends State<DetailsFilterSccreen> {
                               return AlertDialog(
                                 content: SizedBox(
                                   height:
-                                      MediaQuery.of(context).size.height / 4,
+                                      MediaQuery.of(context).size.height / 2,
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     crossAxisAlignment:
@@ -164,8 +178,74 @@ class _DetailsFilterSccreenState extends State<DetailsFilterSccreen> {
                                         "ARE YOU SURE YOU WANT TO RESET YOUR TIMER?",
                                         textAlign: TextAlign.center,
                                       ),
-                                      const SizedBox(
-                                        height: 20,
+                                      SizedBox(
+                                        height: 20.h,
+                                      ),
+                                      Text(
+                                        'New Date Filter Changed',
+                                        textAlign: TextAlign.start,
+                                        style: TextStyle(
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                            fontSize: 17),
+                                      ),
+                                      SizedBox(
+                                        height: 10.h,
+                                      ),
+                                      Form(
+                                        key: formKey,
+                                        child: TextFormField(
+                                          autofocus: false,
+                                          controller: dateController,
+                                          readOnly: true,
+                                          style: const TextStyle(
+                                              fontSize: 15.0,
+                                              color: Colors.white),
+                                          decoration: InputDecoration(
+                                            filled: true,
+                                            fillColor: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                            hintText: 'Thrusday, May 4th, 2019',
+                                            hintStyle: const TextStyle(
+                                                color: Colors.white),
+                                            contentPadding:
+                                                const EdgeInsets.only(
+                                                    left: 14.0,
+                                                    bottom: 8.0,
+                                                    top: 8.0),
+                                            focusedBorder: OutlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary),
+                                              borderRadius:
+                                                  BorderRadius.circular(25.7),
+                                            ),
+                                            enabledBorder: UnderlineInputBorder(
+                                              borderSide: BorderSide(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary),
+                                              borderRadius:
+                                                  BorderRadius.circular(25.7),
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            _selectDate();
+                                          },
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Please enter the date filter changed';
+                                            } else {
+                                              return null;
+                                            }
+                                          },
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 20.h,
                                       ),
                                       Row(
                                         mainAxisAlignment:
@@ -182,9 +262,9 @@ class _DetailsFilterSccreenState extends State<DetailsFilterSccreen> {
                                                   box.get(
                                                       "KEYDOCCURRENTFILTEROPEN",
                                                       defaultValue: ""),
-                                                  DateTime.now().toString(),
-                                                  DateTime.parse(DateTime.now()
-                                                          .toString())
+                                                  dateController.text,
+                                                  DateTime.parse(
+                                                          dateController.text)
                                                       .add(const Duration(
                                                           days:
                                                               timeDurationOfFilter))
@@ -210,12 +290,12 @@ class _DetailsFilterSccreenState extends State<DetailsFilterSccreen> {
                                                     MainAxisAlignment.center,
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.center,
-                                                children: const [
-                                                  Icon(Icons.check),
+                                                children: [
+                                                  const Icon(Icons.check),
                                                   SizedBox(
-                                                    width: 10,
+                                                    width: 10.w,
                                                   ),
-                                                  Text(
+                                                  const Text(
                                                     "Yes",
                                                     style: TextStyle(
                                                         fontWeight:
@@ -225,8 +305,8 @@ class _DetailsFilterSccreenState extends State<DetailsFilterSccreen> {
                                               ),
                                             ),
                                           ),
-                                          const SizedBox(
-                                            width: 10,
+                                          SizedBox(
+                                            width: 10.w,
                                           ),
                                           SizedBox(
                                             width: MediaQuery.of(context)
@@ -254,12 +334,12 @@ class _DetailsFilterSccreenState extends State<DetailsFilterSccreen> {
                                                     MainAxisAlignment.center,
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.center,
-                                                children: const [
-                                                  Icon(Icons.close),
+                                                children: [
+                                                  const Icon(Icons.close),
                                                   SizedBox(
-                                                    width: 10,
+                                                    width: 10.w,
                                                   ),
-                                                  Text(
+                                                  const Text(
                                                     "No",
                                                     style: TextStyle(
                                                         fontWeight:
@@ -283,9 +363,169 @@ class _DetailsFilterSccreenState extends State<DetailsFilterSccreen> {
                       ),
                     ),
                   ),
+                  SizedBox(
+                      height: ScreenUtil().screenWidth > 500 ? 20.h : 10.h),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width / 2.2,
+                    child: TextButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (context) {
+                              return AlertDialog(
+                                content: SizedBox(
+                                  height:
+                                      MediaQuery.of(context).size.height / 4,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      const Text(
+                                        "ARE YOU SURE YOU WANT TO DELETE YOUR TIMER?",
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      SizedBox(
+                                        height: 20.h,
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        children: [
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                4,
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                DatabaseService().deleteFilter(
+                                                    box.get(
+                                                        "KEYDOCCURRENTFILTEROPEN",
+                                                        defaultValue: ""));
+                                                Navigator.pop(context);
+                                                Navigator.pop(context);
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.white,
+                                                foregroundColor:
+                                                    Colors.green.shade800,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            3.0),
+                                                    side: BorderSide(
+                                                        color: Colors
+                                                            .green.shade800)),
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  const Icon(Icons.check),
+                                                  SizedBox(
+                                                    width: 10.w,
+                                                  ),
+                                                  const Text(
+                                                    "Yes",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 10.w,
+                                          ),
+                                          SizedBox(
+                                            width: MediaQuery.of(context)
+                                                    .size
+                                                    .width /
+                                                4,
+                                            child: ElevatedButton(
+                                              onPressed: () {
+                                                Navigator.pop(context);
+                                              },
+                                              style: ElevatedButton.styleFrom(
+                                                backgroundColor: Colors.white,
+                                                foregroundColor:
+                                                    Colors.red.shade800,
+                                                shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            3.0),
+                                                    side: BorderSide(
+                                                        color: Colors
+                                                            .red.shade800)),
+                                              ),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.center,
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                children: [
+                                                  const Icon(Icons.close),
+                                                  SizedBox(
+                                                    width: 10.w,
+                                                  ),
+                                                  const Text(
+                                                    "No",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            });
+                      },
+                      child: const Text(
+                        "DELETE FILTER",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
                 ],
               ),
             ),
     );
+  }
+
+  Future _selectDate() async {
+    DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: DateTime.parse(dateTime),
+      firstDate: DateTime(2021),
+      lastDate: DateTime(2099),
+      builder: (context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.light(
+              primary: Theme.of(context).colorScheme.primary, // <-- SEE HERE
+              onPrimary:
+                  Theme.of(context).colorScheme.secondary, // <-- SEE HERE
+              onSurface: Colors.black87, // <-- SEE HERE
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+    if (picked != null) {
+      dateController.text =
+          "${picked.year}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
+    }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:phox_mizz_up/helpers.dart';
 import 'package:phox_mizz_up/services/auth_service.dart';
@@ -23,9 +24,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: const Image(
-          image: AssetImage('assets/logo.png'),
-          width: 120,
+        title: Image(
+          image: const AssetImage('assets/logo.png'),
+          width: 120.w,
         ),
         elevation: 0,
         centerTitle: true,
@@ -42,11 +43,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     'SIGN UP',
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 20.h,
                   ),
                   Container(
-                    width: MediaQuery.of(context).size.width / 1.2,
+                    width: ScreenUtil().screenWidth > 500
+                        ? MediaQuery.of(context).size.width / 2
+                        : MediaQuery.of(context).size.width / 1.2,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 15, vertical: 10),
                     decoration: BoxDecoration(
@@ -61,8 +64,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           'Email',
                           style: TextStyle(color: Colors.white),
                         ),
-                        const SizedBox(
-                          height: 10,
+                        SizedBox(
+                          height: 10.h,
                         ),
                         TextFormField(
                           autofocus: false,
@@ -84,15 +87,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 : "Please enter a valid email";
                           },
                         ),
-                        const SizedBox(
-                          height: 20,
+                        SizedBox(
+                          height: 20.h,
                         ),
                         const Text(
                           'Password',
                           style: TextStyle(color: Colors.white),
                         ),
-                        const SizedBox(
-                          height: 10,
+                        SizedBox(
+                          height: 10.h,
                         ),
                         TextFormField(
                           autofocus: false,
@@ -114,15 +117,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             }
                           },
                         ),
-                        const SizedBox(
-                          height: 20,
+                        SizedBox(
+                          height: 20.h,
                         ),
                         const Text(
                           'Full Name',
                           style: TextStyle(color: Colors.white),
                         ),
-                        const SizedBox(
-                          height: 10,
+                        SizedBox(
+                          height: 10.h,
                         ),
                         TextFormField(
                           autofocus: false,
@@ -143,8 +146,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             }
                           },
                         ),
-                        const SizedBox(
-                          height: 30,
+                        SizedBox(
+                          height: 30.h,
                         ),
                         SizedBox(
                           width: MediaQuery.of(context).size.width / 1.2,
@@ -168,8 +171,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ],
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
+                  SizedBox(
+                    height: 20.h,
                   ),
                   TextButton(
                     onPressed: () {
